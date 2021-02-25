@@ -6,7 +6,7 @@
 /*   By: malatini <malatini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 09:18:44 by malatini          #+#    #+#             */
-/*   Updated: 2021/02/25 13:43:54 by malatini         ###   ########.fr       */
+/*   Updated: 2021/02/25 18:38:57 by malatini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,5 @@ typedef struct	s_end_line
 int		get_next_line(int fd, char **line);
 size_t	ft_strlen(char *str);
 char	*ft_strcpy(char *dest, char *src);
-char	*ft_strjoin(char *s1, char *s2);
-void	ft_bzero(void *s, size_t n);
 
 #endif

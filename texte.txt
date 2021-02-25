@@ -1,4 +1,4 @@
 Kirikou
-N'est pas grand 
+N'est pas \n grand 
 Mais il est vaillant
 Mais il est vaillant !

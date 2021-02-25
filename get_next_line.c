@@ -6,36 +6,65 @@
 /*   By: malatini <malatini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 09:22:55 by malatini          #+#    #+#             */
-/*   Updated: 2021/02/25 17:28:38 by malatini         ###   ########.fr       */
+/*   Updated: 2021/02/25 18:39:23 by malatini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#define BUFFER_SIZE 100
+#define BUFFER_SIZE 10
+
+char	*clean(char *buffer)
+{
+	char *clean_cpy;
+	int length;
+	int i;
+
+	i = 0;
+	length = 0;
+	clean_cpy = NULL;
+	while (buffer[length] && length < BUFFER_SIZE && buffer[length] != '\n')
+		length++;
+	if (!(clean_cpy = (char *)malloc(sizeof(char) * (length + 1))))
+		return (NULL);
+	while (i < length)
+	{
+		clean_cpy[i] = buffer[i];
+		i++;
+	}
+	clean_cpy[i] = '\0';
+	return (clean_cpy);
+}
+
+char	*excluded(char *str, char *clean)
+{
+	char *excluded;
+	int length;
+	int i;
+
+	excluded = NULL;
+	if (!(excluded = (char *)malloc(sizeof(char) * (ft_strlen(str) - ft_strlen(clean) + 1))))
+		return (NULL);
+	length = ft_strlen(clean);
+	i = 0;
+	while (str[length] && length < BUFFER_SIZE)
+		excluded[i++] = str[length++];
+	excluded[i++] = '\0';
+	return (excluded);
+}
 
 int		get_next_line(int fd, char **line)
 {
-	//retourner une ligne lue depuis un file descriptor sans le retour a la ligne
-	//static int		count;
-	char			str[BUFFER_SIZE + 1];
+	char			*str;
+	char 			*store_excluded;
 	int				read_ret;
 	(void)fd;
 	(void)line;
-	/*
 	if (!(str = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1))))
 			return (0);
-	*/
 	read_ret = read(fd, str, BUFFER_SIZE);
 	str[read_ret] = '\0';
-	printf("%s\n", str);
-	/*
-	while ((read_ret = read(fd, str, BUFFER_SIZE) != 0))
-	{
-		str[read_ret] = '\0';
-		//printf("%d\n", read_ret);
-		printf("%s\n", str);
-	}
-	*/
+	read_ret = read(fd, str, BUFFER_SIZE);
+	str[read_ret] = '\0';
 	return (fd);
 }
 
