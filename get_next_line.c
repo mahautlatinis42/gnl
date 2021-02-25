@@ -6,65 +6,61 @@
 /*   By: malatini <malatini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 09:22:55 by malatini          #+#    #+#             */
-/*   Updated: 2021/02/25 18:39:23 by malatini         ###   ########.fr       */
+/*   Updated: 2021/02/25 20:06:08 by malatini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #define BUFFER_SIZE 10
 
-char	*clean(char *buffer)
+char	*save_stock(char *buf)
 {
-	char *clean_cpy;
-	int length;
-	int i;
+	int		i;
+	int		j;
+	int		beg;
+	char	*s;
 
 	i = 0;
-	length = 0;
-	clean_cpy = NULL;
-	while (buffer[length] && length < BUFFER_SIZE && buffer[length] != '\n')
-		length++;
-	if (!(clean_cpy = (char *)malloc(sizeof(char) * (length + 1))))
-		return (NULL);
-	while (i < length)
-	{
-		clean_cpy[i] = buffer[i];
+	while (buf[i] && buf[i] != '\n')
 		i++;
-	}
-	clean_cpy[i] = '\0';
-	return (clean_cpy);
-}
-
-char	*excluded(char *str, char *clean)
-{
-	char *excluded;
-	int length;
-	int i;
-
-	excluded = NULL;
-	if (!(excluded = (char *)malloc(sizeof(char) * (ft_strlen(str) - ft_strlen(clean) + 1))))
+	beg = i;
+	while (buf[i])
+		i++;
+	if (!(s = (char *)malloc(sizeof(char) * (i - beg + 1))))
 		return (NULL);
-	length = ft_strlen(clean);
-	i = 0;
-	while (str[length] && length < BUFFER_SIZE)
-		excluded[i++] = str[length++];
-	excluded[i++] = '\0';
-	return (excluded);
+	j = 0;
+	while (buf[beg])
+	{
+		s[j] = buf[beg];
+		j++;
+		beg++;
+	}
+	s[j] = '\0';
+	return (s);
 }
 
 int		get_next_line(int fd, char **line)
 {
-	char			*str;
-	char 			*store_excluded;
-	int				read_ret;
-	(void)fd;
-	(void)line;
-	if (!(str = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1))))
+	char	*buf;
+	int		read_ret;
+	int		i;
+	static int count;
+	char	*stock;
+
+	i = 0;
+	if (!(buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1))))
 			return (0);
-	read_ret = read(fd, str, BUFFER_SIZE);
-	str[read_ret] = '\0';
-	read_ret = read(fd, str, BUFFER_SIZE);
-	str[read_ret] = '\0';
+	read_ret = read(fd, buf, BUFFER_SIZE);
+	printf("%s\n", buf);
+	buf[read_ret] = '\0';
+	//la première fois c est vide
+	printf("%s\n", line[count] = ft_str_clean_dup(buf));
+	//la deuxieme fois je dois boucler en concaténant
+	count++;
+	printf("Stock: %s\n", stock = save_stock(buf));
+	read_ret = read(fd, buf, BUFFER_SIZE);
+	buf[read_ret] = '\0';
+	//printf("%s\n", line[count] = ft_str_clean_dup(buf));
 	return (fd);
 }
 
@@ -73,6 +69,11 @@ int main(void)
 	int fd = open("texte.txt", O_RDONLY);
 	char *line = NULL;
 	get_next_line(fd, &line);
+	/*
+	get_next_line(fd, &line);
+	get_next_line(fd, &line);
+	get_next_line(fd, &line);
+	*/
 	close(fd);
 	return (0);
 }
