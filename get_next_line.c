@@ -6,62 +6,42 @@
 /*   By: malatini <malatini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 09:22:55 by malatini          #+#    #+#             */
-/*   Updated: 2021/02/25 20:06:08 by malatini         ###   ########.fr       */
+/*   Updated: 2021/02/26 14:12:49 by malatini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #define BUFFER_SIZE 10
 
-char	*save_stock(char *buf)
+int		line_is_ok(char *str)
 {
-	int		i;
-	int		j;
-	int		beg;
-	char	*s;
+	int length;
 
-	i = 0;
-	while (buf[i] && buf[i] != '\n')
-		i++;
-	beg = i;
-	while (buf[i])
-		i++;
-	if (!(s = (char *)malloc(sizeof(char) * (i - beg + 1))))
-		return (NULL);
-	j = 0;
-	while (buf[beg])
-	{
-		s[j] = buf[beg];
-		j++;
-		beg++;
-	}
-	s[j] = '\0';
-	return (s);
+	length = ft_strlen(str) - 1;
+	if (str[length] == '\n')
+		return (1);
+	return (0);
 }
+
 
 int		get_next_line(int fd, char **line)
 {
-	char	*buf;
-	int		read_ret;
-	int		i;
-	static int count;
-	char	*stock;
+	char		*buffer;
+	char static *save;
+	int			read_ret;
+	//char		*tmp;
 
-	i = 0;
-	if (!(buf = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1))))
-			return (0);
-	read_ret = read(fd, buf, BUFFER_SIZE);
-	printf("%s\n", buf);
-	buf[read_ret] = '\0';
-	//la première fois c est vide
-	printf("%s\n", line[count] = ft_str_clean_dup(buf));
-	//la deuxieme fois je dois boucler en concaténant
-	count++;
-	printf("Stock: %s\n", stock = save_stock(buf));
-	read_ret = read(fd, buf, BUFFER_SIZE);
-	buf[read_ret] = '\0';
-	//printf("%s\n", line[count] = ft_str_clean_dup(buf));
-	return (fd);
+	(void)line;
+	if (fd < 0 || !line || BUFFER_SIZE <= 0)
+		return (-1);
+	if (!(buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1))))
+			return (-1);
+	read_ret = read(fd, buffer, BUFFER_SIZE);
+	buffer[read_ret] = '\0';
+	save = ft_strjoin(save, buffer);
+	free(buffer);
+	printf("%s\n", save);
+	return (read_ret);
 }
 
 int main(void)
@@ -70,6 +50,7 @@ int main(void)
 	char *line = NULL;
 	get_next_line(fd, &line);
 	/*
+	get_next_line(fd, &line);
 	get_next_line(fd, &line);
 	get_next_line(fd, &line);
 	get_next_line(fd, &line);

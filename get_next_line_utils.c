@@ -6,7 +6,7 @@
 /*   By: malatini <malatini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 10:01:26 by malatini          #+#    #+#             */
-/*   Updated: 2021/02/25 19:55:24 by malatini         ###   ########.fr       */
+/*   Updated: 2021/02/26 14:14:36 by malatini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,37 +17,19 @@ size_t	ft_strlen(char *str)
 {
 	size_t i;
 
+	if (!str)
+		return (0);
 	i = 0;
 	while (str[i])
 		i++;
 	return (i);
 }
 
-char	*ft_str_clean_dup(const char *s1)
-{
-	int		i;
-	char	*cpy;
-
-	i = 0;
-	while (s1[i] && s1[i] != '\n')
-		i++;
-	if (!(cpy = (char *)malloc(sizeof(char) * (i + 1))))
-		return (NULL);
-	i = 0;
-	while (s1[i] && s1[i] != '\n')
-	{
-		cpy[i] = s1[i];
-		i++;
-	}
-	cpy[i] = '\0';
-	return (cpy);
-}
-
 char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*single;
-	int		i;
-	int		j;
+	size_t		i;
+	size_t		j;
 	int		total_length;
 
 	total_length = ft_strlen(s1) + ft_strlen(s2);
@@ -55,12 +37,12 @@ char	*ft_strjoin(char *s1, char *s2)
 		return (NULL);
 	i = 0;
 	j = 0;
-	while (s1[i])
+	while (i < ft_strlen(s1))
 	{
 		single[i] = s1[i];
 		i++;
 	}
-	while (s2[j])
+	while (j < ft_strlen(s2))
 	{
 		single[i + j] = s2[j];
 		j++;
@@ -69,46 +51,25 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (single);
 }
 
-//On ne veut pas faire de copie on veut modifier directement 
-/*
-char	*clean(char *buffer)
+void	*ft_memmove(void *dst, void *src, size_t len)
 {
-	char *clean_cpy;
-	int length;
-	int i;
+	const char	*s;
+	char		*d;
+	size_t		i;
 
-	i = 0;
-	length = 0;
-	clean_cpy = NULL;
-	while (buffer[length] && length < BUFFER_SIZE && buffer[length] != '\n')
-		length++;
-	if (!(clean_cpy = (char *)malloc(sizeof(char) * (length + 1))))
+	s = (const char *)src;
+	d = (char *)dst;
+	if (!d && !s)
 		return (NULL);
-	while (i < length)
-	{
-		clean_cpy[i] = buffer[i];
-		i++;
-	}
-	clean_cpy[i] = '\0';
-	return (clean_cpy);
-}
-*/ 
-
-/*
-char	*excluded(char *str, char *clean)
-{
-	char *excluded;
-	int length;
-	int i;
-
-	excluded = NULL;
-	if (!(excluded = (char *)malloc(sizeof(char) * (ft_strlen(str) - ft_strlen(clean) + 1))))
-		return (NULL);
-	length = ft_strlen(clean);
 	i = 0;
-	while (str[length] && length < BUFFER_SIZE)
-		excluded[i++] = str[length++];
-	excluded[i++] = '\0';
-	return (excluded);
+	if (d < s)
+		while (len--)
+		{
+			d[i] = s[i];
+			i++;
+		}
+	else
+		while (len--)
+			d[len] = s[len];
+	return ((void *)dst);
 }
-*/

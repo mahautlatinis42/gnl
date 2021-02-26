@@ -6,7 +6,7 @@
 /*   By: malatini <malatini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 09:18:44 by malatini          #+#    #+#             */
-/*   Updated: 2021/02/25 19:55:31 by malatini         ###   ########.fr       */
+/*   Updated: 2021/02/26 10:33:38 by malatini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,9 @@
 # include <sys/stat.h> 
 # include <fcntl.h>
 
-
-typedef struct	s_line
-{
-	void	*buf;
-	size_t	nbyte;
-}				t_line;
-
 int		get_next_line(int fd, char **line);
 size_t	ft_strlen(char *str);
-char	*ft_str_clean_dup(const char *s1);
 char	*ft_strjoin(char *s1, char *s2);
-char	*clean(char *buffer);
+void	*ft_memmove(void *dst, void *src, size_t len);
 
 #endif
