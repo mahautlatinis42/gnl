@@ -6,12 +6,16 @@
 /*   By: malatini <malatini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 09:18:44 by malatini          #+#    #+#             */
-/*   Updated: 2021/02/26 10:33:38 by malatini         ###   ########.fr       */
+/*   Updated: 2021/02/28 11:27:49 by malatini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE__H
 # define GET_NEXT_LINE__H
+# define ERROR -1
+# define SUCCESS 1
+# define DONE 0
+
 # include <unistd.h>
 # include <libc.h>
 # include <stdlib.h>
@@ -22,6 +26,10 @@
 int		get_next_line(int fd, char **line);
 size_t	ft_strlen(char *str);
 char	*ft_strjoin(char *s1, char *s2);
-void	*ft_memmove(void *dst, void *src, size_t len);
+void	*ft_calloc(size_t count, size_t size);
+char	*ft_strdup(const char *s1);
+int		ft_eol(char *str);
+void	ft_bzero(void *s, size_t n);
+char	*ft_better_strchr(const char *s, int c);
 
 #endif

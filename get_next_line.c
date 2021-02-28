@@ -6,12 +6,25 @@
 /*   By: malatini <malatini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 09:22:55 by malatini          #+#    #+#             */
-/*   Updated: 2021/02/26 15:48:09 by malatini         ###   ########.fr       */
+/*   Updated: 2021/02/28 11:47:56 by malatini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#define BUFFER_SIZE 100
+#define BUFFER_SIZE 25
+
+void red() {
+  printf("\033[1;31m");
+}
+
+void yellow() {
+  printf("\033[1;33m");
+}
+
+void green()
+{
+	printf("\033[0;32m");
+}
 
 int		found_n(char *str)
 {
@@ -31,7 +44,6 @@ int		found_n(char *str)
 
 void	erase_after_n(char *str)
 {
-	//Je ne modifie pas la string
 	int length;
 	int i;
 
@@ -43,8 +55,6 @@ void	erase_after_n(char *str)
 		str[length] = '\0';
 }
 
-//Maintenant je veux que ma save s arrete au \n sinon je veux passer a la ligne suivante.
-//Je dois boucler en lisant sur le file descriptor pour arriver a la fin de ma liste.
 int		get_next_line(int fd, char **line)
 {
 	char		*buffer;
@@ -52,21 +62,33 @@ int		get_next_line(int fd, char **line)
 	int			read_ret;
 
 	(void)line;
-	if (fd < 0 || !line || BUFFER_SIZE <= 0)
-		return (-1);
 	if (!(buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1))))
-			return (-1);
-	while (!found_n(save))
+		return (ERROR);
+	if (fd < 0 || !line || BUFFER_SIZE <= 0 || read(fd, buffer, 0) < 0)
+		return (ERROR);
+	while ((read_ret = read(fd, buffer, BUFFER_SIZE)) > 0)//!(found_n(save))
 	{
-		read_ret = read(fd, buffer, BUFFER_SIZE);
 		buffer[read_ret] = '\0';
-		save = ft_strjoin(save, buffer);	
+		red();
+		printf("Static : %s\n", save);
+		yellow();
+		printf("Buffer : %s\n", buffer);
+		if (!(found_n(save)))
+		{
+			save = ft_strjoin(save, buffer);
+			//red();
+			//printf("Static update : %s\n", save);
+		}
+		else 
+		{
+			save = ft_better_strchr(save, '\n');
+			green();
+			printf("Static update n : %s\n", save);
+			save = ft_strjoin(save, buffer);
+			printf("Static update re joined : %s\n", save);
+		}
 	}
-	printf("Pas propre : %s\n", save);
-	erase_after_n(save);
 	free(buffer);
-	printf("Propre : %s\n", save);
-	//Comment je retiens pour la suivante du coup ?
 	return (read_ret);
 }
 
@@ -74,14 +96,16 @@ int main(void)
 {
 	int fd = open("texte.txt", O_RDONLY);
 	char *line = NULL;
-	get_next_line(fd, &line);
-	/*
-	Je reste bloquee sur une seul ligne
-	get_next_line(fd, &line);
+	/* printf("%i\n", get_next_line(fd, &line));
+	printf("%i\n", get_next_line(fd, &line)); */
 	get_next_line(fd, &line);
 	get_next_line(fd, &line);
 	get_next_line(fd, &line);
-	*/
+	get_next_line(fd, &line);
+	get_next_line(fd, &line);
+	get_next_line(fd, &line);
+	get_next_line(fd, &line);
+	get_next_line(fd, &line);
 	close(fd);
 	return (0);
 }
