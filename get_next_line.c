@@ -6,7 +6,7 @@
 /*   By: malatini <malatini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 09:22:55 by malatini          #+#    #+#             */
-/*   Updated: 2021/02/28 11:47:56 by malatini         ###   ########.fr       */
+/*   Updated: 2021/02/28 12:55:23 by malatini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int		get_next_line(int fd, char **line)
 		return (ERROR);
 	if (fd < 0 || !line || BUFFER_SIZE <= 0 || read(fd, buffer, 0) < 0)
 		return (ERROR);
+	//La lecture du file descriptor ne doit etre faite qu une fois
 	while ((read_ret = read(fd, buffer, BUFFER_SIZE)) > 0)//!(found_n(save))
 	{
 		buffer[read_ret] = '\0';
