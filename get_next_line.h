@@ -6,7 +6,7 @@
 /*   By: malatini <malatini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 09:18:44 by malatini          #+#    #+#             */
-/*   Updated: 2021/03/01 14:16:57 by malatini         ###   ########.fr       */
+/*   Updated: 2021/03/01 16:53:45 by malatini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,13 @@
 # include <limits.h>
 
 int		get_next_line(int fd, char **line);
-size_t	ft_strlen(char *str);
-char	*ft_strjoin(char *s1, char *s2);
+int		ft_strlen(char *str);
+char	*ft_strnjoin(char *s1, char *s2);
 void	*ft_calloc(size_t count, size_t size);
 char	*ft_strdup(const char *s1);
 int		ft_eol(char *str);
 void	ft_bzero(void *s, size_t n);
 char	*ft_better_strchr(char *s, int c);
+int		found_n(char *str);
 
 #endif

@@ -6,15 +6,15 @@
 /*   By: malatini <malatini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 10:01:26 by malatini          #+#    #+#             */
-/*   Updated: 2021/03/01 15:43:48 by malatini         ###   ########.fr       */
+/*   Updated: 2021/03/01 17:04:54 by malatini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(char *str)
+int		ft_strlen(char *str)
 {
-	size_t i;
+	int i;
 
 	if (!str)
 		return (0);
@@ -24,42 +24,34 @@ size_t	ft_strlen(char *str)
 	return (i);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_strnjoin(char *s1, char *s2)
 {
 	char		*single;
-	size_t		i;
-	size_t		j;
+	int			i;
+	int			j;
 	int			total_length;
+	int			k;
 
-	total_length = ft_strlen(s1) + ft_strlen(s2);
+	i = 0;
+	k = 0;
+	j = found_n(s2) > 0 ? found_n(s2) : ft_strlen(s2);
+	total_length = ft_strlen(s1) + j;
 	if (!(single = (char *)malloc(sizeof(char) * (total_length + 1))))
 		return (NULL);
-	i = 0;
-	j = 0;
 	while (i < ft_strlen(s1))
 	{
 		single[i] = s1[i];
 		i++;
 	}
-	while (j < ft_strlen(s2))
+	while (k < j)
 	{
-		single[i + j] = s2[j];
-		j++;
+		single[i + k] = s2[k];
+		k++;
 	}
-	single[i + j] = '\0';
+	single[i + k] = '\0';
+	free(s1);
 	return (single);
 }
-/*
-void	*ft_calloc(size_t count, size_t size)
-{
-	void *memory;
-
-	if (!(memory = (void *)malloc(sizeof(size) * count)))
-		return (NULL);
-	ft_bzero(memory, count * size);
-	return (memory);
-}
-*/
 
 char	*ft_strdup(const char *s1)
 {
@@ -81,22 +73,6 @@ char	*ft_strdup(const char *s1)
 	return (cpy);
 }
 
-int		ft_eol(char *str)
-{
-	int i;
-
-	if (!str)
-		return (0);
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '\n')
-			return (i);
-		i++;
-	}
-	return (0);
-}
-
 void	ft_bzero(void *s, size_t n)
 {
 	size_t i;
@@ -108,6 +84,7 @@ void	ft_bzero(void *s, size_t n)
 		((char *)s)[i++] = '\0';
 }
 
+/*
 char	*ft_better_strchr(char *s, int c)
 {
 	int		i;
@@ -120,49 +97,5 @@ char	*ft_better_strchr(char *s, int c)
 	if (c == s[i] || c == '\0')
 		return (ft_strdup((char *)&s[i + 1]));
 	return (NULL);
-}
-
-/*
-char	*erase_after_n(char *str)
-{
-	int		length;
-	int		i;
-	char	*line;
-
-	if (found_n(str) <= 0)
-		return (NULL);
-	i = found_n(str);
-	if (!(line = (char *)malloc(sizeof(char) * (i + 1))))
-		return (NULL);
-	length = ft_strlen(str);
-	while (length-- > i)
-		str[length] = '\0';
-	i = 0;
-	printf("%s\n", str);
-	while (str[i])
-	{
-		line[i] = str[i];
-		i++;
-	}
-	line[i] = '\0';
-	return (line);
-}
-*/
-
-/*
-int		found_n(char *str)
-{
-	int i;
-
-	if (!str)
-		return (0);
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '\n')
-			return (i);
-		i++;
-	}
-	return (0);
 }
 */
