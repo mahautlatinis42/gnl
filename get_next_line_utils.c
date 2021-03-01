@@ -6,7 +6,7 @@
 /*   By: malatini <malatini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 10:01:26 by malatini          #+#    #+#             */
-/*   Updated: 2021/02/28 11:30:36 by malatini         ###   ########.fr       */
+/*   Updated: 2021/03/01 15:43:48 by malatini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ size_t	ft_strlen(char *str)
 
 char	*ft_strjoin(char *s1, char *s2)
 {
-	char	*single;
+	char		*single;
 	size_t		i;
 	size_t		j;
-	int		total_length;
+	int			total_length;
 
 	total_length = ft_strlen(s1) + ft_strlen(s2);
 	if (!(single = (char *)malloc(sizeof(char) * (total_length + 1))))
@@ -49,7 +49,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	single[i + j] = '\0';
 	return (single);
 }
-
+/*
 void	*ft_calloc(size_t count, size_t size)
 {
 	void *memory;
@@ -59,6 +59,7 @@ void	*ft_calloc(size_t count, size_t size)
 	ft_bzero(memory, count * size);
 	return (memory);
 }
+*/
 
 char	*ft_strdup(const char *s1)
 {
@@ -107,10 +108,10 @@ void	ft_bzero(void *s, size_t n)
 		((char *)s)[i++] = '\0';
 }
 
-char	*ft_better_strchr(const char *s, int c)
+char	*ft_better_strchr(char *s, int c)
 {
-	int i;
-	char *str;
+	int		i;
+	char	*str;
 
 	i = 0;
 	str = NULL;
@@ -120,3 +121,48 @@ char	*ft_better_strchr(const char *s, int c)
 		return (ft_strdup((char *)&s[i + 1]));
 	return (NULL);
 }
+
+/*
+char	*erase_after_n(char *str)
+{
+	int		length;
+	int		i;
+	char	*line;
+
+	if (found_n(str) <= 0)
+		return (NULL);
+	i = found_n(str);
+	if (!(line = (char *)malloc(sizeof(char) * (i + 1))))
+		return (NULL);
+	length = ft_strlen(str);
+	while (length-- > i)
+		str[length] = '\0';
+	i = 0;
+	printf("%s\n", str);
+	while (str[i])
+	{
+		line[i] = str[i];
+		i++;
+	}
+	line[i] = '\0';
+	return (line);
+}
+*/
+
+/*
+int		found_n(char *str)
+{
+	int i;
+
+	if (!str)
+		return (0);
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\n')
+			return (i);
+		i++;
+	}
+	return (0);
+}
+*/
