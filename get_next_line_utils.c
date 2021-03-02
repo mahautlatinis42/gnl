@@ -6,7 +6,7 @@
 /*   By: malatini <malatini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 10:01:26 by malatini          #+#    #+#             */
-/*   Updated: 2021/03/02 09:14:31 by malatini         ###   ########.fr       */
+/*   Updated: 2021/03/02 17:12:04 by malatini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,27 @@ int		ft_strichr(char *s, char c)
 		i++;
 	}
 	return (-1);
+}
+
+char	*save_new(char *save)
+{
+	int		i;
+	int		j;
+	char	*cpy;
+
+	cpy = ft_strdup(save);
+	i = 0;
+	j = 0;
+	while (cpy[i] != '\n')
+		i++;
+	i++;
+	while (cpy[i])
+	{
+		save[j] = cpy[i];
+		i++;
+		j++;
+	}
+	save[j] = '\0';
+	free(cpy);
+	return (save);
 }
