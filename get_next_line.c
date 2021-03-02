@@ -6,7 +6,7 @@
 /*   By: malatini <malatini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 09:22:55 by malatini          #+#    #+#             */
-/*   Updated: 2021/03/02 09:16:12 by malatini         ###   ########.fr       */
+/*   Updated: 2021/03/02 09:16:50 by malatini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int		get_next_line(int fd, char **line)
 		read_ret = read(fd, save[fd], BUFFER_SIZE);
 		save[fd][read_ret] = '\0';
 	}
-	*line = ft_strnjoin(*line, save[fd]);s
+	*line = ft_strnjoin(*line, save[fd]);
 	save_new(save[fd]);
 	return (read_ret);
 }
