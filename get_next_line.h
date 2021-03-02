@@ -6,7 +6,7 @@
 /*   By: malatini <malatini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 09:18:44 by malatini          #+#    #+#             */
-/*   Updated: 2021/03/02 09:13:42 by malatini         ###   ########.fr       */
+/*   Updated: 2021/03/02 10:36:06 by malatini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 # define ERROR -1
 # define SUCCESS 1
 # define DONE 0
+
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 10
+# endif
 
 # include <unistd.h>
 # include <libc.h>
