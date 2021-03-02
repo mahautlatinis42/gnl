@@ -6,7 +6,7 @@
 /*   By: malatini <malatini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 10:01:26 by malatini          #+#    #+#             */
-/*   Updated: 2021/03/01 17:04:54 by malatini         ###   ########.fr       */
+/*   Updated: 2021/03/02 09:14:31 by malatini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*ft_strnjoin(char *s1, char *s2)
 
 	i = 0;
 	k = 0;
-	j = found_n(s2) > 0 ? found_n(s2) : ft_strlen(s2);
+	j = ft_strichr(s2, '\n') > 0 ? ft_strichr(s2, '\n') : ft_strlen(s2);
 	total_length = ft_strlen(s1) + j;
 	if (!(single = (char *)malloc(sizeof(char) * (total_length + 1))))
 		return (NULL);
@@ -73,29 +73,16 @@ char	*ft_strdup(const char *s1)
 	return (cpy);
 }
 
-void	ft_bzero(void *s, size_t n)
+int		ft_strichr(char *s, char c)
 {
-	size_t i;
+	int	i;
 
 	i = 0;
-	if (n == 0)
-		return ;
-	while (i < n)
-		((char *)s)[i++] = '\0';
-}
-
-/*
-char	*ft_better_strchr(char *s, int c)
-{
-	int		i;
-	char	*str;
-
-	i = 0;
-	str = NULL;
-	while (s[i] && s[i] != c)
+	while (s[i])
+	{
+		if (s[i] == c)
+			return (i);
 		i++;
-	if (c == s[i] || c == '\0')
-		return (ft_strdup((char *)&s[i + 1]));
-	return (NULL);
+	}
+	return (-1);
 }
-*/
