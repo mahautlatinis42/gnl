@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malatini <malatini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/25 09:22:55 by malatini          #+#    #+#             */
-/*   Updated: 2021/03/03 15:30:50 by malatini         ###   ########.fr       */
+/*   Created: 2021/03/03 15:33:42 by malatini          #+#    #+#             */
+/*   Updated: 2021/03/03 15:44:34 by malatini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 int		ft_hasnewline(char *str)
 {
@@ -79,7 +79,7 @@ char	*ft_prep_s(char *s)
 
 int		get_next_line(int fd, char **line)
 {
-	static char *s;
+	static char *s[OPEN_MAX];
 	int			b_read;
 	char		*buffer;
 
@@ -88,7 +88,7 @@ int		get_next_line(int fd, char **line)
 	if (!(buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1))))
 		return (ERROR);
 	b_read = BUFFER_SIZE;
-	while (b_read != 0 && !(ft_hasnewline(s)))
+	while (b_read != 0 && !(ft_hasnewline(s[fd])))
 	{
 		if ((b_read = read(fd, buffer, BUFFER_SIZE)) == -1)
 		{
@@ -96,11 +96,11 @@ int		get_next_line(int fd, char **line)
 			return (ERROR);
 		}
 		buffer[b_read] = '\0';
-		s = gnl_strjoin(s, buffer);
+		s[fd] = gnl_strjoin(s[fd], buffer);
 	}
 	free(buffer);
-	*line = ft_newline(s);
-	s = ft_prep_s(s);
+	*line = ft_newline(s[fd]);
+	s[fd] = ft_prep_s(s[fd]);
 	if (b_read == 0)
 		return (DONE);
 	return (SUCCESS);

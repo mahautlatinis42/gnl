@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malatini <malatini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/25 09:18:44 by malatini          #+#    #+#             */
-/*   Updated: 2021/03/03 15:31:10 by malatini         ###   ########.fr       */
+/*   Created: 2021/03/03 15:33:38 by malatini          #+#    #+#             */
+/*   Updated: 2021/03/03 15:42:05 by malatini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE__H
+#ifndef GET_NEXT_LINE_BONUS__H
 # define GET_NEXT_LINE__H
 # define ERROR -1
 # define SUCCESS 1
