@@ -6,7 +6,7 @@
 /*   By: malatini <malatini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 09:18:44 by malatini          #+#    #+#             */
-/*   Updated: 2021/03/02 17:12:19 by malatini         ###   ########.fr       */
+/*   Updated: 2021/03/03 11:50:56 by malatini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,9 @@
 # include <fcntl.h>
 # include <limits.h>
 
+size_t	ft_strlen(const char *s);
+char	*gnl_strjoin(char *s1, char *s2);
+char	*create_line(char *tmp, char *buffer);
 int		get_next_line(int fd, char **line);
-int		ft_strlen(char *str);
-char	*ft_strnjoin(char *s1, char *s2);
-char	*ft_strdup(const char *s1);
-int		ft_strichr(char *s, char c);
-char	*save_new(char *save);
 
 #endif
